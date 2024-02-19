@@ -4,7 +4,6 @@ import java.security.Key;
 import java.util.Date;
 import java.util.function.Function;
 
-import org.jrotero.coches.security.jwt.JwtUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +23,7 @@ public class JwtUtils {
 	@Value("${jwt.time.expiration}")
 	private String timeExpiration;
 	
+	//generador de acceso por token
 	public String generateAccessToken(String username) {
 		return Jwts.builder()
 				.setSubject(username)
@@ -33,6 +33,7 @@ public class JwtUtils {
 				.compact();
 	}
 	
+	//obtener username del token
 	public String getUsernameToken(String token) {
 		return getClaim(token, Claims::getSubject);
 	}
@@ -49,12 +50,14 @@ public class JwtUtils {
 				.parseClaimsJws(token)
 				.getBody();
 	}
-	
+
+	//obtener la firma
 	private Key getSignatureKey() {
 		byte[] keyBy = Decoders.BASE64.decode(secretKey);
 		return Keys.hmacShaKeyFor(keyBy);
 	}
 	
+	//Validar el token
 	public boolean isTokenvalid(String token) {
 		try {
 			Jwts.parserBuilder()
@@ -68,5 +71,5 @@ public class JwtUtils {
 			return false;
 		}
 	}
-
+	
 }

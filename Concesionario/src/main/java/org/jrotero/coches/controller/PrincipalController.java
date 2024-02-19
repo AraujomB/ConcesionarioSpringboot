@@ -22,8 +22,8 @@ import jakarta.validation.Valid;
 @RestController
 public class PrincipalController {
 	
-	/*@Autowired
-	private PasswordEncoder passwordEncoder;*/
+	//@Autowired
+	//private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -42,13 +42,13 @@ public class PrincipalController {
 	public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserDTO createUserDTO){
 		Set<RolEntity> roles = createUserDTO.getRoles().stream()
 				.map(role-> RolEntity.builder()
-						.roles(ERoles.valueOf(role))
+						.roles(ERoles.valueOf(role)) //transformamos el rol en un ERol para tenerlo como identificador
 						.build())
 					.collect(Collectors.toSet());
 		
 		UserEntity userEntity = UserEntity.builder()
 				.username(createUserDTO.getUsername())
-				.password(/*passwordEncoder.encode(*/createUserDTO.getPassword()/*)*/)
+				.password(createUserDTO.getPassword())
 				.email(createUserDTO.getEmail())
 				.roles(roles)
 				.build();

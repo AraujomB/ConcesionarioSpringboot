@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 import org.jrotero.coches.models.CocheEntity;
 import org.jrotero.coches.services.CocheService;
-import org.jrotero.coches.services.CocheServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +34,7 @@ public class CocheController {
 		this.service = service;
 	}
 
-	@GetMapping("{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<?> getCar(@PathVariable Long id, BindingResult result) throws Exception{
 		Map<String, Object> response = new HashMap<String, Object>();
 		if(result.hasErrors()) {
@@ -49,7 +48,7 @@ public class CocheController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 	}
 	
-	@PostMapping("createCar")
+	@PostMapping("/createCar")
 	public ResponseEntity<?> create(@Valid @RequestBody CocheEntity coche, BindingResult result) throws Exception{
 		Map<String, Object> response = new HashMap<String, Object>();
 		if(result.hasErrors()) {
@@ -64,7 +63,7 @@ public class CocheController {
 		
 	}
 	
-	@PutMapping("/update/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<?> update(@PathVariable Long id, @RequestBody CocheEntity coche, BindingResult result){
 		Map<String, Object> response = new HashMap<String, Object>();
 		if(result.hasErrors()) {
@@ -78,7 +77,7 @@ public class CocheController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.ACCEPTED);
 	}
 	
-	@GetMapping("/get-all")
+	@GetMapping("/get-all-cars")
 	public ResponseEntity<?> getAllCars(){
 		return ResponseEntity.ok(service.getAllCars());
 	}
