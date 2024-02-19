@@ -49,8 +49,6 @@ public class SecurityConfig {
 					session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 				}).addFilter(authF)
 				.addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class).build();
-				/*.httpBasic(withDefaults()) //para pedir usuario y contraseña
-				.build(); // para hacer peticiones de autenticacion basic*/
 		
 	};
 	

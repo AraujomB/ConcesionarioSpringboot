@@ -5,6 +5,6 @@ public enum ERoles {
 	ADMIN, 
 	USER,
 	INVITED,
-	TESTING
+	SUPERADMIN
 	
 }
